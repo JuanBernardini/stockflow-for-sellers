@@ -1,15 +1,11 @@
+// ProductCard.tsx (Corrigido)
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Pencil, Power } from "lucide-react";
-
-interface Product {
-  id: string;
-  nome: string;
-  preco: number;
-  quantidade: number;
-  status: "ativo" | "inativo";
-}
+import { Pencil, Power, PowerOff } from "lucide-react"; // Adicionei PowerOff para clareza
+// --- ALTERAÇÃO: Importando o tipo central ---
+import { Product } from "@/types";
 
 interface ProductCardProps {
   product: Product;
@@ -18,24 +14,22 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, onEdit, onToggleStatus }: ProductCardProps) {
+  // --- ALTERAÇÃO: Verificando o status da API (letra maiúscula) ---
+  const isAtivo = product.status === "Ativo";
+
   return (
     <Card className="shadow-card hover:shadow-lg transition-shadow">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <h3 className="text-lg font-semibold text-foreground">{product.nome}</h3>
           <Badge
-            variant={product.status === "ativo" ? "default" : "secondary"}
-            className={
-              product.status === "ativo"
-                ? "bg-success text-success-foreground"
-                : "bg-muted text-muted-foreground"
-            }
+            variant={isAtivo ? "default" : "secondary"}
+            className={isAtivo ? "bg-success text-success-foreground" : "bg-muted text-muted-foreground"}
           >
-            {product.status === "ativo" ? "Ativo" : "Inativo"}
+            {isAtivo ? "Ativo" : "Inativo"}
           </Badge>
         </div>
       </CardHeader>
-
       <CardContent className="space-y-2">
         <div className="flex justify-between items-center">
           <span className="text-sm text-muted-foreground">Preço:</span>
@@ -50,25 +44,20 @@ export function ProductCard({ product, onEdit, onToggleStatus }: ProductCardProp
           </span>
         </div>
       </CardContent>
-
       <CardFooter className="flex gap-2 pt-4 border-t">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onEdit(product)}
-          className="flex-1"
-        >
+        <Button variant="outline" size="sm" onClick={() => onEdit(product)} className="flex-1">
           <Pencil className="h-4 w-4 mr-2" />
           Editar
         </Button>
         <Button
-          variant={product.status === "ativo" ? "secondary" : "default"}
+          // --- ALTERAÇÃO: Ajuste na variante do botão ---
+          variant={isAtivo ? "secondary" : "default"}
           size="sm"
           onClick={() => onToggleStatus(product)}
           className="flex-1"
         >
-          <Power className="h-4 w-4 mr-2" />
-          {product.status === "ativo" ? "Inativar" : "Ativar"}
+          {isAtivo ? <PowerOff className="h-4 w-4 mr-2" /> : <Power className="h-4 w-4 mr-2" />}
+          {isAtivo ? "Inativar" : "Ativar"}
         </Button>
       </CardFooter>
     </Card>
