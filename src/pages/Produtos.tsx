@@ -20,8 +20,17 @@ const Produtos = () => {
   const fetchProducts = async () => {
     try {
       const response = await getProducts();
-      setProducts(response.data);
+      // Ensure response.data is an array before setting state
+      if (Array.isArray(response.data)) {
+        setProducts(response.data);
+      } else {
+        console.error("API returned non-array data:", response.data);
+        setProducts([]);
+        toast.error("Formato de dados inválido recebido da API.");
+      }
     } catch (error) {
+      console.error("Error fetching products:", error);
+      setProducts([]); // Ensure products remains an array even on error
       toast.error("Erro ao buscar produtos. Tente recarregar a página.");
     }
   };
