@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Cadastro from "./pages/Cadastro";
 import Produtos from "./pages/Produtos";
 import Vendas from "./pages/Vendas";
+import Dashboards from "./pages/Dashboards";
 import NotFound from "./pages/NotFound";
 import Ativacao from './pages/Ativacao';
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/produtos" element={<Produtos />} />
           <Route path="/vendas" element={<Vendas />} />
+          <Route path="/dashboards" element={<Dashboards />} />
           <Route path="/ativacao/:vendedorId" element={<Ativacao />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

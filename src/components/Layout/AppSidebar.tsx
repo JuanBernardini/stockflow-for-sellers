@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Package, ShoppingCart, LogOut } from "lucide-react";
+import { Package, ShoppingCart, BarChart3, LogOut } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -14,6 +14,7 @@ import logo from "@/assets/logo.png";
 const menuItems = [
   { title: "Meus Produtos", url: "/produtos", icon: Package },
   { title: "Registrar Venda", url: "/vendas", icon: ShoppingCart },
+  { title: "Dashboards", url: "/dashboards", icon: BarChart3 },
 ];
 
 export function AppSidebar() {
